@@ -19,8 +19,9 @@ contract Faucet {
 
     function requestToekens() external OnlyOnce {
         IERC20 token = IERC20(s_tokenContract); // 创建IERC20合约对象
-        // 通过token的balanceOf函数判断当前账户的代币数量是否足够完成一次发放
-        // 而当前账户下的代币数量需要通过token的tranfer函数先发放到当前账户，因此需要先去调用创建好的ERC20合约的transfer函数
+        // 通过token的balanceOf函数判断当前Faucet合约地址的代币数量是否足够完成一次发放  address(this)等同于this,指当前合约地址
+        // 关于合约地址和账户地址的区别 - https://zhuanlan.zhihu.com/p/493891090
+        // 而当前Faucet合约地址下的代币数量需要通过token的tranfer函数先发放到当前Faucet合约地址，因此需要先去调用创建好的ERC20合约的transfer函数
         if (token.balanceOf(address(this)) < s_amountAllowed) {
             revert Faucet_FaucetEmpty();
         }
