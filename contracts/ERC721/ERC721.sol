@@ -67,7 +67,7 @@ contract ERC721 is IERC721, IERC721Metadata {
     // 实现IERC721的ownerOf，利用_owners变量查询tokenId的owner。
     function ownerOf(
         uint tokenId
-    ) external view override returns (address owner) {
+    ) public view override returns (address owner) {
         owner = s_owners[tokenId];
         if (owner == address(0)) {
             revert ERC721_TokenDoesNotExist();
